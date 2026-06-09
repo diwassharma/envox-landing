@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Envox B2B | Custom Packaging Enquiry Form</title>
+    <meta
+      name="description"
+      content="Build a B2B packaging enquiry for Envox Carton, Envox Paper Bag, and Envox Boxes with selected products, quantities, sizes, print requirements, materials, and timeline."
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="assets/envox-logo.jpg" type="image/jpeg">
+    <script src="app.js" defer></script>
+  </head>
+  <body data-page="b2b">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Envox Industries home">
+        <img class="brand-full-logo" src="assets/envox-full-logo.jpg" alt="Envox Industries">
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="carton.html">Carton</a>
+        <a href="paper-bags.html">Paper Bag</a>
+        <a href="boxes.html">Boxes</a>
+        <a href="retail.html">Retail</a>
+        <a class="active" href="b2b.html">B2B</a>
+        <a href="index.html#legacy">Legacy</a>
+        <a class="nav-cta" href="#b2b-form">Enquire</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-hero">
+        <div class="page-hero-copy">
+          <p class="eyebrow">B2B packaging enquiry</p>
+          <h1>Select products and build your RFQ.</h1>
+          <p>
+            Choose products under Envox Carton, Envox Paper Bag, and Envox
+            Boxes. Each selection is added to the enquiry form so your team can
+            share a practical packaging brief.
+          </p>
+        </div>
+        <figure class="page-hero-media">
+          <img src="assets/envox-packaging-hero.png" alt="Packaging products for B2B enquiry">
+        </figure>
+      </section>
+
+      <section class="b2b-builder-section">
+        <div class="section-heading">
+          <p class="eyebrow">Product selector</p>
+          <h2>Pick the packaging families you need.</h2>
+        </div>
+        <div class="b2b-layout">
+          <div id="b2b-product-tree" class="product-tree"></div>
+          <aside class="selected-panel">
+            <p class="eyebrow">Selected products</p>
+            <div id="b2b-selected-products" class="selected-products"></div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="b2b-form" class="b2b-form-section">
+        <div class="section-heading">
+          <p class="eyebrow">RFQ details</p>
+          <h2>Complete the manufacturing brief.</h2>
+        </div>
+        <form class="b2b-form">
+          <label>
+            Company name
+            <input type="text" name="company" placeholder="Business / shop / brand name">
+          </label>
+          <label>
+            Contact person
+            <input type="text" name="person" placeholder="Name">
+          </label>
+          <label>
+            Phone
+            <input type="tel" name="phone" placeholder="Mobile number">
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" placeholder="Work email">
+          </label>
+          <label>
+            City
+            <input type="text" name="city" placeholder="City / region">
+          </label>
+          <label>
+            Business type
+            <select name="businessType">
+              <option>Sweet shop</option>
+              <option>Bakery</option>
+              <option>Restaurant / QSR</option>
+              <option>Cloud kitchen</option>
+              <option>Retail brand</option>
+              <option>Industrial buyer</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label class="full-span">
+            Selected products
+            <textarea id="selected-products-field" name="selectedProducts" rows="5" placeholder="Select products above to populate this field"></textarea>
+          </label>
+          <label>
+            Quantity
+            <input type="text" name="quantity" placeholder="Approximate quantity / monthly requirement">
+          </label>
+          <label>
+            Size
+            <input type="text" name="size" placeholder="Known dimensions or product size">
+          </label>
+          <label>
+            Print requirement
+            <select name="printRequirement">
+              <option>No print / plain</option>
+              <option>Logo print</option>
+              <option>Single color print</option>
+              <option>Multi-color print</option>
+              <option>Need design support</option>
+            </select>
+          </label>
+          <label>
+            Material / finish
+            <input type="text" name="material" placeholder="Kraft, white board, food grade, window, matte, etc.">
+          </label>
+          <label>
+            Timeline
+            <select name="timeline">
+              <option>Urgent</option>
+              <option>1-2 weeks</option>
+              <option>2-4 weeks</option>
+              <option>Monthly recurring supply</option>
+              <option>Planning stage</option>
+            </select>
+          </label>
+          <label class="full-span">
+            Message
+            <textarea name="message" rows="5" placeholder="Share product details, usage, packing style, samples needed, delivery location, or any special requirements"></textarea>
+          </label>
+          <button class="button primary" type="button" data-b2b-submit>Prepare Enquiry Summary</button>
+          <p id="b2b-note" class="form-note full-span" role="status"></p>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
