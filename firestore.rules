@@ -1,0 +1,92 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /rfqRequests/{requestId} {
+      allow create: if isValidRfqRequest();
+      allow read, update, delete: if false;
+    }
+
+    match /retailProducts/{productId} {
+      allow get, list: if resource.data.active == true;
+      allow create, update, delete: if false;
+    }
+
+    function isValidRfqRequest() {
+      return request.resource.data.keys().hasOnly([
+          "status",
+          "source",
+          "customer",
+          "selectedProducts",
+          "selectedProductsText",
+          "requirements",
+          "pagePath",
+          "submittedFrom",
+          "userAgent",
+          "clientSubmittedAt",
+          "createdAt"
+        ])
+        && request.resource.data.status == "new"
+        && request.resource.data.source == "envox-b2b-web"
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.customer is map
+        && request.resource.data.customer.keys().hasOnly([
+          "company",
+          "person",
+          "phone",
+          "email",
+          "city",
+          "businessType"
+        ])
+        && request.resource.data.customer.company is string
+        && request.resource.data.customer.company.size() > 1
+        && request.resource.data.customer.company.size() <= 160
+        && request.resource.data.customer.person is string
+        && request.resource.data.customer.person.size() > 1
+        && request.resource.data.customer.person.size() <= 120
+        && request.resource.data.customer.phone is string
+        && request.resource.data.customer.phone.size() > 5
+        && request.resource.data.customer.phone.size() <= 40
+        && request.resource.data.customer.email is string
+        && request.resource.data.customer.email.size() <= 160
+        && request.resource.data.customer.city is string
+        && request.resource.data.customer.city.size() <= 120
+        && request.resource.data.customer.businessType is string
+        && request.resource.data.customer.businessType.size() <= 80
+        && request.resource.data.selectedProducts is list
+        && request.resource.data.selectedProducts.size() > 0
+        && request.resource.data.selectedProducts.size() <= 30
+        && request.resource.data.selectedProductsText is string
+        && request.resource.data.selectedProductsText.size() <= 4000
+        && request.resource.data.requirements is map
+        && request.resource.data.requirements.keys().hasOnly([
+          "quantity",
+          "size",
+          "printRequirement",
+          "material",
+          "timeline",
+          "message"
+        ])
+        && request.resource.data.requirements.quantity is string
+        && request.resource.data.requirements.quantity.size() <= 160
+        && request.resource.data.requirements.size is string
+        && request.resource.data.requirements.size.size() <= 160
+        && request.resource.data.requirements.printRequirement is string
+        && request.resource.data.requirements.printRequirement.size() <= 120
+        && request.resource.data.requirements.material is string
+        && request.resource.data.requirements.material.size() <= 180
+        && request.resource.data.requirements.timeline is string
+        && request.resource.data.requirements.timeline.size() <= 80
+        && request.resource.data.requirements.message is string
+        && request.resource.data.requirements.message.size() <= 2500
+        && request.resource.data.pagePath is string
+        && request.resource.data.pagePath.size() <= 240
+        && request.resource.data.submittedFrom is string
+        && request.resource.data.submittedFrom.size() <= 500
+        && request.resource.data.userAgent is string
+        && request.resource.data.userAgent.size() <= 500
+        && request.resource.data.clientSubmittedAt is string
+        && request.resource.data.clientSubmittedAt.size() <= 40;
+    }
+  }
+}
